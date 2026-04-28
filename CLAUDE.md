@@ -68,10 +68,23 @@ When adding a new category, update both `CAT_META` (JS) and the corresponding `-
 
 ## Git workflow
 
-The repo is on GitHub at `https://github.com/Arnold415/taskpulse-todo`. After every change:
+**Commit and push after every piece of work — no exceptions.** The goal is that GitHub always reflects the current state of the project so no work is ever lost and any change can be reverted.
+
+The repo is at `https://github.com/Arnold415/taskpulse-todo` with remote `origin`, branch `master`.
+
+**When to commit:** After each logical unit of work — a new feature, a bug fix, a UI tweak, a refactor. Do not batch multiple unrelated changes into one commit.
+
+**Commit message rules:**
+- Use the imperative present tense: `Add subtask progress bar`, not `Added` or `Adding`
+- First line is a short summary (under 72 characters)
+- If the change needs more context, add a blank line then a short paragraph
+- Never use vague messages like `update`, `fix`, `changes`, or `WIP`
+
+**The sequence after every change:**
 ```bash
-git add <changed files>
-git commit -m "short present-tense summary"
+git add <changed files>          # stage only the files that changed
+git commit -m "Descriptive summary of what and why"
 git push
 ```
-`tasks.db` is gitignored — local data is never committed.
+
+`tasks.db` is gitignored — local task data is never committed.
