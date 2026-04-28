@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Sidebar ─────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+      <span class="logo-text">TaskPulse</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-view="all">
+        <i class="fas fa-th-list"></i><span>All Tasks</span>
+        <span class="nav-badge" id="badge-all">0</span>
+      </button>
+      <button class="nav-item" data-view="today">
+        <i class="fas fa-sun"></i><span>Today</span>
+        <span class="nav-badge" id="badge-today">0</span>
+      </button>
+      <button class="nav-item" data-view="upcoming">
+        <i class="fas fa-calendar-days"></i><span>Upcoming</span>
+        <span class="nav-badge" id="badge-upcoming">0</span>
+      </button>
+      <button class="nav-item" data-view="overdue">
+        <i class="fas fa-circle-exclamation"></i><span>Overdue</span>
+        <span class="nav-badge danger" id="badge-overdue">0</span>
+      </button>
+      <button class="nav-item" data-view="completed">
+        <i class="fas fa-circle-check"></i><span>Completed</span>
+        <span class="nav-badge success" id="badge-completed">0</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-section">
+      <h3 class="section-label">Priority</h3>
+      <div class="priority-filters">
+        <button class="pf-btn active" data-priority="all">All</button>
+        <button class="pf-btn" data-priority="high"><span class="dot high"></span>High</button>
+        <button class="pf-btn" data-priority="medium"><span class="dot medium"></span>Medium</button>
+        <button class="pf-btn" data-priority="low"><span class="dot low"></span>Low</button>
+        <button class="pf-btn" data-priority="none"><span class="dot none"></span>None</button>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3 class="section-label">Category</h3>
+      <div id="categoryFilters" class="category-filters"></div>
+    </div>
+
+    <div class="sidebar-stats">
+      <div class="stat-block">
+        <span class="stat-num" id="stat-total">0</span>
+        <span class="stat-lbl">Total</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num success" id="stat-done">0</span>
+        <span class="stat-lbl">Done</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-num warning" id="stat-pending">0</span>
+        <span class="stat-lbl">Pending</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ──────────────────────────────────── -->
+  <main class="main">
+
+    <header class="top-bar">
+      <button class="icon-btn" id="sidebarToggle" title="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="search-wrap">
+        <i class="fas fa-magnifying-glass"></i>
+        <input id="searchInput" type="text" placeholder="Search tasks…" autocomplete="off" />
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="notifBtn" title="Notification permission">
+          <i class="fas fa-bell"></i>
+          <span class="notif-dot" id="notifDot"></span>
+        </button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="content-head">
+        <div>
+          <h1 class="view-title" id="viewTitle">All Tasks</h1>
+          <p class="view-sub" id="viewSub">All your tasks in one place</p>
+        </div>
+        <div class="content-controls">
+          <select class="sort-sel" id="sortSel">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="due_asc">Due date ↑</option>
+            <option value="due_desc">Due date ↓</option>
+            <option value="priority">By priority</option>
+            <option value="alpha">A → Z</option>
+          </select>
+          <button class="add-btn" id="addBtn">
+            <i class="fas fa-plus"></i> New Task
+          </button>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progText">0 of 0 completed</span>
+          <span id="progPct">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+      </div>
+
+      <div class="task-list" id="taskList">
+        <div class="empty-state" id="emptyState">
+          <i class="fas fa-clipboard-list"></i>
+          <h3>No tasks here</h3>
+          <p>Click <strong>New Task</strong> to get started</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── Modal ──────────────────────────────────── -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">New Task</h2>
+      <button class="icon-btn" id="modalClose"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Title <span class="req">*</span></label>
+        <input id="fTitle" type="text" placeholder="What needs to be done?" />
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="fDesc" placeholder="Add details…" rows="3"></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Priority</label>
+          <select id="fPriority">
+            <option value="high">🔴 High</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+            <option value="none">⚪ None</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select id="fCategory">
+            <option value="general">📋 General</option>
+            <option value="work">💼 Work</option>
+            <option value="personal">👤 Personal</option>
+            <option value="shopping">🛒 Shopping</option>
+            <option value="health">❤️ Health</option>
+            <option value="finance">💰 Finance</option>
+            <option value="education">📚 Education</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label><i class="fas fa-calendar-alt"></i> Due Date</label>
+          <input id="fDue" type="date" />
+        </div>
+        <div class="field">
+          <label><i class="fas fa-bell"></i> Alarm / Reminder</label>
+          <input id="fAlarm" type="datetime-local" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn ghost" id="cancelBtn">Cancel</button>
+      <button class="btn primary" id="saveBtn"><i class="fas fa-floppy-disk"></i> Save Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Delete confirm modal ───────────────────── -->
+<div class="overlay" id="confirmOverlay">
+  <div class="modal confirm-modal">
+    <div class="modal-head">
+      <h2>Delete Task?</h2>
+      <button class="icon-btn" id="confirmClose"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete <strong id="confirmTaskName"></strong>? This cannot be undone.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn ghost" id="confirmNo">Cancel</button>
+      <button class="btn danger" id="confirmYes"><i class="fas fa-trash"></i> Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toasts ──────────────────────────────────── -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
