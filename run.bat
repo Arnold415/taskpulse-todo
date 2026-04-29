@@ -16,7 +16,7 @@ if errorlevel 1 (
 )
 
 echo  Installing / verifying dependencies...
-pip install flask --quiet
+pip install flask flask-login bcrypt google-auth google-auth-oauthlib google-api-python-client --quiet
 
 echo  Starting app...
 echo.

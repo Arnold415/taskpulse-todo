@@ -277,6 +277,13 @@ function buildCard(t) {
     meta.appendChild(alm);
   }
 
+  if (t.gcal_event_id) {
+    const gcal = makeEl('span', 'gcal-badge');
+    gcal.innerHTML = '<i class="fab fa-google"></i>';
+    gcal.title = 'Synced to Google Calendar';
+    meta.appendChild(gcal);
+  }
+
   body.appendChild(meta);
   card.appendChild(body);
 

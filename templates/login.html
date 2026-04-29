@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskPulse — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+      <span class="logo-text">TaskPulse</span>
+    </div>
+
+    <h2 class="auth-title">Welcome back</h2>
+    <p class="auth-sub">Sign in to your account</p>
+
+    {% if error %}
+    <div class="auth-error">
+      <i class="fas fa-circle-xmark"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/login" class="auth-form">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter your username"
+               autocomplete="username" autofocus />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password"
+               autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn primary auth-submit">
+        <i class="fas fa-right-to-bracket"></i> Sign In
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      Don't have an account? <a href="/register">Create one</a>
+    </p>
+
+  </div>
+</div>
+
+</body>
+</html>

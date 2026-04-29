@@ -885,6 +885,150 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
+   AUTH PAGES (login / register)
+═══════════════════════════════════════════════ */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 20px;
+}
+
+.auth-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow2);
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.auth-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--txt);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.auth-sub {
+  font-size: .85rem;
+  color: var(--txt3);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-error {
+  background: rgba(255,71,87,.12);
+  border: 1px solid rgba(255,71,87,.3);
+  color: var(--danger);
+  border-radius: var(--radius2);
+  padding: 10px 14px;
+  font-size: .85rem;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-form { display: flex; flex-direction: column; }
+
+.auth-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: .95rem;
+  margin-top: 4px;
+}
+
+.auth-switch {
+  text-align: center;
+  font-size: .85rem;
+  color: var(--txt3);
+  margin-top: 20px;
+}
+
+.auth-switch a { color: var(--accent2); text-decoration: none; }
+.auth-switch a:hover { text-decoration: underline; }
+
+.auth-optional {
+  font-size: .75rem;
+  color: var(--txt3);
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════════════
+   USER CHIP & GCAL BUTTON (top bar)
+═══════════════════════════════════════════════ */
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 6px 12px;
+  font-size: .85rem;
+  color: var(--txt2);
+  white-space: nowrap;
+}
+
+.user-chip i { color: var(--txt3); font-size: .95rem; }
+.user-chip-name { font-weight: 500; }
+
+.user-logout {
+  color: var(--txt3);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 2px 0 2px 6px;
+  border-left: 1px solid var(--border);
+  margin-left: 2px;
+  transition: color .2s;
+}
+
+.user-logout:hover { color: var(--danger); }
+
+.gcal-btn { text-decoration: none; position: relative; }
+
+.gcal-btn.connected { color: var(--success); border-color: rgba(46,213,115,.4); }
+.gcal-btn.connected:hover { background: rgba(46,213,115,.1); border-color: var(--success); color: var(--success); }
+
+.gcal-dot {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  border: 2px solid var(--bg2);
+}
+
+/* Google Calendar badge on task cards */
+.gcal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: .7rem;
+  color: #4285f4;
+  background: rgba(66,133,244,.12);
+  border-radius: 20px;
+  padding: 2px 7px;
+}
+
+.gcal-badge i { font-size: .68rem; }
+
+/* ═══════════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════════ */
 @media (max-width: 768px) {

@@ -94,6 +94,28 @@
         <button class="icon-btn" id="themeBtn" title="Toggle theme">
           <i class="fas fa-moon" id="themeIcon"></i>
         </button>
+        {% if google_available %}
+          {% if gcal_connected %}
+          <a href="/auth/google/disconnect" class="icon-btn gcal-btn connected"
+             title="Google Calendar connected ({{ gcal_email }}) · Click to disconnect"
+             onclick="return confirm('Disconnect Google Calendar?')">
+            <i class="fab fa-google"></i>
+            <span class="gcal-dot"></span>
+          </a>
+          {% else %}
+          <a href="/auth/google/start" class="icon-btn gcal-btn"
+             title="Connect Google Calendar">
+            <i class="fab fa-google"></i>
+          </a>
+          {% endif %}
+        {% endif %}
+        <div class="user-chip">
+          <i class="fas fa-user-circle"></i>
+          <span class="user-chip-name">{{ username }}</span>
+          <a href="/logout" class="user-logout" title="Sign out">
+            <i class="fas fa-right-from-bracket"></i>
+          </a>
+        </div>
       </div>
     </header>
 
@@ -216,5 +238,11 @@
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script src="/static/app.js"></script>
+{% set gcal_status = request.args.get('gcal') %}
+{% if gcal_status == 'connected' %}
+<script>document.addEventListener('DOMContentLoaded', () => setTimeout(() => toast('Google Calendar connected!', 'success'), 300));</script>
+{% elif gcal_status == 'error' %}
+<script>document.addEventListener('DOMContentLoaded', () => setTimeout(() => toast('Google Calendar connection failed', 'error'), 300));</script>
+{% endif %}
 </body>
 </html>
